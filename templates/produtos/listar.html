@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Produtos - Sistema de Supermercado{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Produtos</h1>
+    <a href="/produtos/novo" class="btn btn-primary">Novo Produto</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Estoque</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{ produto.id_produto }}</td>
+                <td>{{ produto.nome }}</td>
+                <td>R$ {{ "%.2f"|format(produto.preco) }}</td>
+                <td>{{ produto.estoque }}</td>
+                <td>
+                    <a href="/produtos/{{ produto.id_produto }}/editar" class="btn btn-sm btn-warning">Editar</a>
+                    <form method="POST" action="/produtos/{{ produto.id_produto }}/excluir" style="display: inline;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

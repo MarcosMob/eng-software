@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Sistema de Supermercado{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Sistema de Supermercado</h1>
+    <p class="lead">Sistema CRUD para gerenciamento de clientes e produtos.</p>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Clientes</h5>
+                    <p class="card-text">Gerencie os clientes do supermercado.</p>
+                    <a href="/clientes" class="btn btn-primary">Ver Clientes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Produtos</h5>
+                    <p class="card-text">Gerencie os produtos do supermercado.</p>
+                    <a href="/produtos" class="btn btn-primary">Ver Produtos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
