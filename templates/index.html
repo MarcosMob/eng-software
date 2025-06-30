@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Orçamento PON</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Calculadora Flexível para Projetos de Redes Ópticas PON</h1>
+            <p class="instructions">
+                Preencha os valores conhecidos. Deixe o campo que deseja calcular <strong>em branco</strong>.
+                Se todos os campos forem preenchidos, a <strong>Margem de Segurança</strong> será calculada.
+            </p>
+        </header>
+
+        <form action="/calcular" method="post">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="p_tx_dbm">Potência de Transmissão (Tx) [dBm]</label>
+                    <input type="number" step="0.1" name="p_tx_dbm" id="p_tx_dbm" placeholder="Ex: 5.0">
+                    <small>Típico: {{ faixas.p_tx_dbm[0] }} a {{ faixas.p_tx_dbm[1] }}</small>
+                </div>
+                <div class="form-group">
+                    <label for="s_rx_dbm">Sensibilidade de Recepção (Rx) [dBm]</label>
+                    <input type="number" step="0.1" name="s_rx_dbm" id="s_rx_dbm" placeholder="Ex: -28.0">
+                    <small>Típico: {{ faixas.s_rx_dbm[0] }} a {{ faixas.s_rx_dbm[1] }}</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="perda_splitter_db">Divisor Óptico (Splitter)</label>
+                    <select name="perda_splitter_db" id="perda_splitter_db">
+                        <option value="">-- Deixe em branco para calcular --</option>
+                        {% for ratio, perda in splitters.items() %}
+                        <option value="{{ perda }}">Splitter {{ ratio }} (Perda: {{ perda }} dB)</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comprimento_km">Comprimento da Fibra [km]</label>
+                    <input type="number" step="0.01" name="comprimento_km" id="comprimento_km" placeholder="Ex: 15.5">
+                </div>
+                <div class="form-group">
+                    <label for="atenuacao_db_km">Atenuação da Fibra [dB/km]</label>
+                    <input type="number" step="0.01" name="atenuacao_db_km" id="atenuacao_db_km" placeholder="Ex: 0.22">
+                     <small>Típico: {{ faixas.atenuacao_db_km[0] }} a {{ faixas.atenuacao_db_km[1] }}</small>
+                </div>
+                 <div class="form-group">
+                    <label for="num_conectores">Número de Conectores</label>
+                    <input type="number" step="1" name="num_conectores" id="num_conectores" placeholder="Ex: 4">
+                </div>
+                 <div class="form-group">
+                    <label for="perda_conector_db">Perda por Conector [dB]</label>
+                    <input type="number" step="0.01" name="perda_conector_db" id="perda_conector_db" placeholder="Ex: 0.5">
+                    <small>Típico: {{ faixas.perda_conector_db[0] }} a {{ faixas.perda_conector_db[1] }}</small>
+                </div>
+                <div class="form-group">
+                    <label for="margem_seguranca_db">Margem de Segurança [dB]</label>
+                    <input type="number" step="0.1" name="margem_seguranca_db" id="margem_seguranca_db" placeholder="Ex: 3.0">
+                     <small>Típico: {{ faixas.margem_seguranca_db[0] }} a {{ faixas.margem_seguranca_db[1] }}</small>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Calcular</button>
+        </form>
+    </div>
+</body>
+</html>

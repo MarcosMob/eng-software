@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Cálculo PON</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Resultado do Cálculo</h1>
+        </header>
+
+        <div class="results-box">
+            {% if alertas %}
+            <div class="alerts">
+                <h3>Alertas de Validação:</h3>
+                <ul>
+                    {% for alerta in alertas %}
+                    <li>{{ alerta }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="final-result">
+                <h3>Cálculo Realizado:</h3>
+                <pre>{{ resultado }}</pre>
+            </div>
+        </div>
+
+        <a href="/" class="back-button">Voltar e Calcular Novamente</a>
+    </div>
+</body>
+</html>
